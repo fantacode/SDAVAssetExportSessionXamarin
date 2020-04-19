@@ -1,7 +1,7 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 	<PropertyGroup>
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">xamarin.ios10</TargetFrameworks>
-		<TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">xamarin.ios10;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
+		<TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">xamarin.ios10</TargetFrameworks>
 		<AssemblyName>SDAVAssetExportSessionXamarin</AssemblyName>
 		<RootNamespace>SDAVAssetExportSessionXamarin</RootNamespace>
 		<Description>AVAssetExportSession drop-in replacement with customizable audio &amp; video settings</Description>
@@ -29,7 +29,7 @@
 	</ItemGroup>
 	<ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
 		<ObjcBindingCoreSource Include="Structs.cs" />
-		<ObjcBindingApiDefinition Include="ApiDefinitions.cs" />
+		<ObjcBindingApiDefinition Include="ApiDefinition.cs" />
 		<ObjcBindingNativeLibrary Include="libSDAVAssetExportSession.a" />
 		<Compile Include="libSDAVAssetExportSession.linkwith.cs">
 			<DependentUpon>libSDAVAssetExportSession.a</DependentUpon>
