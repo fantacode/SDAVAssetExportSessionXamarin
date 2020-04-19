@@ -1,55 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{A3FB6392-DDEE-4C6F-A99C-4898289EF9CA}</ProjectGuid>
-    <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>NativeLibrary</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>SDAVAssetExportSession</AssemblyName>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ObjcBindingCoreSource Include="Structs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <NativeReference Include="..\SDAVAssetExportSession\libSDAVAssetExportSession.a">
-      <Kind>Static</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+	<PropertyGroup>
+		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">xamarin.ios10</TargetFrameworks>
+		<TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">xamarin.ios10;xamarin.mac20;xamarin.tvos10</TargetFrameworks>
+		<AssemblyName>SDAVAssetExportSessionXamarin</AssemblyName>
+		<RootNamespace>SDAVAssetExportSessionXamarin</RootNamespace>
+		<Description>AVAssetExportSession drop-in replacement with customizable audio &amp; video settings</Description>
+		<PackageId>SDAVAssetExportSessionXamarin</PackageId>
+		<IsBindingProject Condition="'$(OS)' != 'Windows_NT'">true</IsBindingProject>
+		<EnableDefaultItems>false</EnableDefaultItems>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Version>0.0.5</Version>
+		<Authors>Abdul Muhaymin Arif</Authors>
+		<Company>Fantacode Private Limiteds</Company>
+		<Summary>TranscoderXamarin: Xamarin Binding for hhttps://github.com/rs/SDAVAssetExportSession Project.</Summary>
+		<Description>
+			AVAssetExportSession drop-in replacement with customizable audio &amp; video settings.
+
+			You want the ease of use of AVAssetExportSession but default provided presets doesn't fit your needs? You then began to read documentation for AVAssetWriter, AVAssetWriterInput, AVAssetReader, AVAssetReaderVideoCompositionOutput, AVAssetReaderAudioMixOutput… and you went out of aspirin? SDAVAssetExportSession is a rewrite of AVAssetExportSession on top of AVAssetReader* and AVAssetWriter*. Unlike AVAssetExportSession, you are not limited to a set of presets – you have full access over audio and video settings.
+		</Description>
+		<PackageTags>xamarin, android, SDAVAssetExportSession</PackageTags>
+		<Copyright>©Fantacode Private Limited. All rights reserved.</Copyright>
+		<RepositoryUrl>https://github.com/fantacode/SDAVAssetExportSessionXamarin</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE" PackagePath="" Pack="true" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
+		<ObjcBindingCoreSource Include="Structs.cs" />
+		<ObjcBindingApiDefinition Include="ApiDefinitions.cs" />
+		<ObjcBindingNativeLibrary Include="libSDAVAssetExportSession.a" />
+		<Compile Include="libSDAVAssetExportSession.linkwith.cs">
+			<DependentUpon>libSDAVAssetExportSession.a</DependentUpon>
+		</Compile>
+	</ItemGroup>
 </Project>
